@@ -6,7 +6,11 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>ball game </title>
-		
+			<center>	
+				左右移動：左右キー
+				<br>
+				ボール投下：下キー
+			</center>
 		<style>
 			* {
 				padding : 0;
@@ -231,7 +235,7 @@
 					ball_y[id]-=1;
 				}
 				while(ball_x[id]-ball_r[id]<100){
-					vx[id]=0.1;
+					vx[id]=0.01;
 					//vy[id]=1;
 					ball_r[id]=r;
 				m[id]=mas;
@@ -314,6 +318,78 @@
 				}
 			}
 			
+			function next_ball(){
+			let r;
+				switch(b_rank[now_ball_num]){
+					case 1:
+								ball_color="red";
+								r=10;
+					break;
+					
+					case 2:
+								ball_color="blue";
+								r=15;
+					break;
+					
+					case 3:
+								r=20;
+								ball_color="green";
+					break;
+					
+					case 4:
+								r=25;
+								ball_color="yellow";
+					break;
+					
+					case 5:
+								r=30;
+								ball_color="black";
+					break;
+					
+					case 6:
+								r=40;
+								ball_color="white";
+					break;
+					
+					case 7:
+								r=50;
+								ball_color="#e0bf";
+					break;
+					
+					case 8:
+								r=60;
+								ball_color="#aebf";
+					break;
+					
+					case 9:
+								r=70;
+								ball_color="#bfaf";
+					break;
+					
+					case 10:
+								r=80;
+								ball_color="#aecf";
+					break;
+					
+					case 11:
+								r=90;
+								ball_color="#bf7a";
+					break;
+					
+					case 12:
+								r=100;
+								ball_color="#b77a";
+					break;
+				}
+				ctx.beginPath();
+				ctx.fillText("next",400,50);
+				ctx.font="16px Arial";
+				ctx.arc(430, 70, r, 0, Math.PI * 2, false);
+				ctx.fillStyle = ball_color;
+				ctx.fill();
+				ctx.closePath();
+			}
+			
 			function draw(){
 				let r;
 				ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -338,6 +414,7 @@
 					//now_ball_num=0;
 					alert("GAME OVER");
 				}
+				next_ball();
 			}
 			
 			
