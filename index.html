@@ -24,7 +24,6 @@
 		</style>
 	</head>
 	<body>
-		<p id="score_plate"></p>
 		
 		<canvas id="game_canvas" width = "480" height="600" ></canvas>
 		
@@ -33,6 +32,9 @@
 			const max_ball_num=10000;
 			const canvas=document.getElementById("game_canvas");
 			const ctx = canvas.getContext("2d");
+			let relativeX;
+			let cli=0;
+			let cli_2=0;
 			let ball_x=new Array(max_ball_num);
 			let ball_y=new Array(max_ball_num);
 			let ball_r=new Array(max_ball_num);
@@ -56,10 +58,16 @@
 			document.addEventListener("keydown",keyDownHandler,false);
 			document.addEventListener("keyup",keyUpHandler,false);
 			
-			var random = Math.floor(Math.random()*4+1);
-
-			console.log( random );
-
+			document.addEventListener("mousemove", mouseMoveHandler, false);
+			
+			canvas.addEventListener('click',function(){
+				cli=1;
+				cli_2=1;
+			});
+			
+			function mouseMoveHandler(e){
+				relativeX=e.clientX - canvas.offsetLeft;
+			}
 			
 			function keyDownHandler(e){
 				if(e.key=="Right" || e.key == "ArrowRight"){
@@ -224,14 +232,15 @@
 					}
 				}else{
 					
-					if(rightPressed){
+					if(rightPressed || relativeX>ball_x[id]){
 						ball_x[id]++;
 					}
-					if(leftPressed){
+					if(leftPressed || relativeX<ball_x[id]){
 						ball_x[id]--;
 					}
-					if(downPressed){
+					if(downPressed || cli==1){
 							ball_fall_start[id]=1;
+							cli=0;
 					}
 				}
 				while(ball_y[id]-2>(canvas.height-100)+40-ball_r[id]){
@@ -405,6 +414,9 @@
 				if(now_ball_num<max_ball_num){
 					if(ball_fall_start[now_ball_num-1]>=1 && ball_y[now_ball_num-1]>50){
 						now_ball_num++;
+						if(cli_2==1){
+							cli=0;
+						}
 					}
 										
 				}
