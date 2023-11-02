@@ -232,10 +232,10 @@
 					}
 				}else{
 					
-					if(rightPressed || relativeX>ball_x[id]){
+					if(rightPressed || (relativeX>ball_x[id]&&relativeX<canvas.width)){
 						ball_x[id]++;
 					}
-					if(leftPressed || relativeX<ball_x[id]){
+					if(leftPressed || (relativeX<ball_x[id] &&relativeX>0)){
 						ball_x[id]--;
 					}
 					if(downPressed || cli==1){
